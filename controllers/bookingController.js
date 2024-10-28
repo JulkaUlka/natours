@@ -16,10 +16,10 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
         unit_amount: tour.price * 100,
         product_data: {
           name: `${tour.name} Tour`,
-          description: tour.description, //description here
+          description: tour.description,
           images: [
             `${req.protocol}://${req.get('host')}/img/tours/${tour.imageCover}`,
-          ], //only accepts live images (images hosted on the internet),
+          ],
         },
       },
     },
@@ -33,7 +33,7 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
     }&user=${req.user.id}&price=${tour.price}`,
     cancel_url: `${req.protocol}://${req.get('host')}/tour/${tour.slug}`,
     customer_email: req.user.email,
-    client_reference_id: req.params.tourId, //this field allows us to pass in some data about this session that we are currently creating.
+    client_reference_id: req.params.tourId,
     line_items: transformedItems,
     mode: 'payment',
   });
